@@ -1,4 +1,4 @@
-# EDD_Gingerbread_KPMSecure
+# KPM Secure - An application developed by Gingerbread Team
 
 <p align="center"><img src="https://github.com/DarkZeyan/EDD_Gingerbread_KPMSecure/blob/main/EDD_PROYECTO_KPM_SECURE/src/resources/KPMLogo_512.png?raw=true" width="400"/></p>
 
