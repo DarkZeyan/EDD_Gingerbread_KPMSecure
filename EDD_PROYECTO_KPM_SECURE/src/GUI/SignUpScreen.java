@@ -1,10 +1,17 @@
 package GUI;
+import static LocalFiles.Main.saveUsers;
 import LocalFiles.User;
+import ManualCollections.DoubleList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 public class SignUpScreen extends javax.swing.JFrame {
 
-    public SignUpScreen() {
+      private DoubleList<User> users;
+    
+    public SignUpScreen(DoubleList<User> users) {
         initComponents();
+        setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
+        this.users=users;
     }
 
     //Used Methods
@@ -12,7 +19,9 @@ public class SignUpScreen extends javax.swing.JFrame {
     private void CreateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserButtonActionPerformed
         if(!PasswordField.getText().equals("") && !UserField.getText().equals("") && !EmailField.equals("")){
             if(PasswordField.getText().equals(VerifyPasswordField.getText())){
-                User user1 = new User(UserField.getText(), PasswordField.getText());
+                users.add(new User(UserField.getText(), EmailField.getText(), PasswordField.getText())); 
+                saveUsers(users);
+                JOptionPane.showMessageDialog(null, "Usuario creado exitosamente","Usuado creado con exito",JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Error",JOptionPane.ERROR_MESSAGE);
             }
@@ -20,18 +29,11 @@ public class SignUpScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_CreateUserButtonActionPerformed
 
-    private void UserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFieldActionPerformed
-      
-    }//GEN-LAST:event_UserFieldActionPerformed
-
-    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
-      
-    }//GEN-LAST:event_EmailFieldActionPerformed
-
     private void ReturnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnHomeActionPerformed
-        LoginScreen loginScreen = new LoginScreen();
+        LoginScreen loginScreen = new LoginScreen(users);
         loginScreen.setLocationRelativeTo(null);
         loginScreen.setVisible(true);
+        saveUsers(users);
         dispose();
     }//GEN-LAST:event_ReturnHomeActionPerformed
 
@@ -48,8 +50,6 @@ public class SignUpScreen extends javax.swing.JFrame {
         }else if(UserField.getText().equals("")){
             UserField.setText("Ingresa tu usuario");
         }
-
-
     }//GEN-LAST:event_UserFieldKeyTyped
 
     private void EmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailFieldKeyTyped
@@ -93,11 +93,6 @@ public class SignUpScreen extends javax.swing.JFrame {
 
         UserField.setText("Ingresa tu usuario");
         UserField.setToolTipText("");
-        UserField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserFieldActionPerformed(evt);
-            }
-        });
         UserField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 UserFieldKeyTyped(evt);
@@ -129,11 +124,6 @@ public class SignUpScreen extends javax.swing.JFrame {
 
         EmailField.setText("Ingresa tu email");
         EmailField.setToolTipText("");
-        EmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailFieldActionPerformed(evt);
-            }
-        });
         EmailField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 EmailFieldKeyTyped(evt);

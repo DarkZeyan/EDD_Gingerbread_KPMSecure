@@ -4,35 +4,53 @@
  */
 package GUI;
 
+import static LocalFiles.Main.saveUsers;
+import LocalFiles.User;
+import ManualCollections.DoubleList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class LoginScreen extends javax.swing.JFrame {
 
+   private DoubleList<User> users;
     /**
      * Creates new form LoginScreen
+     * @param users
      */
-    public LoginScreen() {
+    public LoginScreen(DoubleList<User> users) {
         initComponents();
+        setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
+        this.users=users;
     }
 
     // Used Methods
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-         SignUpScreen signUpScreen = new SignUpScreen();
+         SignUpScreen signUpScreen = new SignUpScreen(users);
          signUpScreen.setLocationRelativeTo(null);
          signUpScreen.setVisible(true);
+         saveUsers(users);
          dispose();
     }
     
     
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        
+        for(int i=0; i<users.size(); i++){
+            try{
+                User user = (User) users.getValueAt(i);
+                if(UserField.getText().equals(user.getUsername()) && PasswordField.getText().equals(user.getPassword())){
+                    JOptionPane.showMessageDialog(null, "Sesion iniciada exitosamente","Sesion iniciada con exito",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch(Exception e){
+                
+            }
+         
+            
+        }
     }//GEN-LAST:event_LoginButtonActionPerformed
-
-    private void UserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFieldActionPerformed
-        
-    }//GEN-LAST:event_UserFieldActionPerformed
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,9 +80,9 @@ public class LoginScreen extends javax.swing.JFrame {
 
         UserField.setText("Ingresa tu usuario");
         UserField.setToolTipText("");
-        UserField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserFieldActionPerformed(evt);
+        UserField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                UserFieldKeyTyped(evt);
             }
         });
         getContentPane().add(UserField, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 259, 234, -1));
@@ -101,6 +119,14 @@ public class LoginScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UserFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UserFieldKeyTyped
+            if(UserField.getText().equals("Ingresa tu usuario")){
+            UserField.setText("");
+        }else if(UserField.getText().equals("")){
+            UserField.setText("Ingresa tu usuario");
+        }
+    }//GEN-LAST:event_UserFieldKeyTyped
 
     /**
      * @param args the command line arguments

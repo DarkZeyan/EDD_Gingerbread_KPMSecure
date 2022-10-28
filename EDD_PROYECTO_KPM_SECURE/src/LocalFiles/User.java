@@ -1,25 +1,29 @@
 package LocalFiles;
 
-import java.util.ArrayList;
+import ManualCollections.DoubleList;
+import java.io.Serializable;
 
 
-public class User{
+
+public class User implements Serializable{
 
     private String username;
+    private String email;
     private String password;
-    private ArrayList<Account> accounts;
+    private DoubleList<Account> accounts;
 
-    public User(String username, String password){
+    public User(String username, String email, String password){
         this.username = username;
+        this.email = email;
         this.password = password;
         this.accounts = null;
     }
 
-    public ArrayList<Account> getAccounts() {
+    public DoubleList<Account> getAccounts() {
         return accounts;
     }
     
-    public void setAccounts(ArrayList<Account> accounts) {
+    public void setAccounts(DoubleList<Account> accounts) {
         this.accounts = accounts;
     }
 
@@ -39,4 +43,12 @@ public class User{
        this.username = username;
    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+   
 }
