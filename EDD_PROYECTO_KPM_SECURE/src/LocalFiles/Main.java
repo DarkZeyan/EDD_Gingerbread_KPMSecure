@@ -57,7 +57,7 @@ public class Main {
 
             return users;
         } catch (FileNotFoundException e) {
-            // System.out.println("Los estudiantes no fueron encontrados");
+            // No se pudieron encontrar usuarios.
         } catch (IOException | ClassNotFoundException e) {
         }
         return users;

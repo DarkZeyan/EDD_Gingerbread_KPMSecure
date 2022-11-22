@@ -17,14 +17,21 @@ import javax.swing.JOptionPane;
 public class MainScreen extends javax.swing.JFrame {
 
    private KPMDataList<User> users;
+   private User user;
     /**
      * Creates new form LoginScreen
-     * @param users
+     * @param user
      */
     public MainScreen(User user) {
-        initComponents();
-        setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
-        this.users=users;
+        try{
+            initComponents();
+            setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
+            this.user=user;
+        }catch(Exception ex){
+            
+        }finally{
+            saveUsers(users);
+        }
     }
 
     // Used Methods
@@ -74,8 +81,8 @@ public class MainScreen extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        KPMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/KPMLogo_192.png"))); // NOI18N
-        getContentPane().add(KPMLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 0, -1, 204));
+        KPMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/KPMLogo_128.png"))); // NOI18N
+        getContentPane().add(KPMLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, -30, -1, 204));
         getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 318, 234, -1));
 
         EmailField.setText("Ingresa tu email");
@@ -115,12 +122,12 @@ public class MainScreen extends javax.swing.JFrame {
         });
         getContentPane().add(SignUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, -1, -1));
 
-        SignUpLabel.setText("¿No tienes cuenta? Regístrate aquí ");
+        SignUpLabel.setText("¡Bienvenido a KPM Secure!"+);
         getContentPane().add(SignUpLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 405, -1, -1));
 
         Background.setBackground(new java.awt.Color(62, 63, 66));
         Background.setForeground(new java.awt.Color(62, 63, 66));
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 530));
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

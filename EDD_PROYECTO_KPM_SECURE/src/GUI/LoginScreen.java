@@ -42,7 +42,18 @@ public class LoginScreen extends javax.swing.JFrame {
             try{
                 User user = (User) users.getValueAt(i);
                 if(EmailField.getText().equals(user.getEmail()) && PasswordField.getText().equals(user.getPassword())){
-                    JOptionPane.showMessageDialog(null, "Sesion iniciada exitosamente","Sesion iniciada con exito",JOptionPane.INFORMATION_MESSAGE);
+                 if(PasswordField.getText().equals(user.getPassword())){
+                    
+                     MainScreen ms = new MainScreen(user);
+                     ms.setLocationRelativeTo(null);
+                     ms.setVisible(true);
+                     saveUsers(users);
+                     this.dispose();                     
+                 }else{
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta","Error",JOptionPane.ERROR_MESSAGE);
+                 }
+                }else{
+                    JOptionPane.showMessageDialog(null, "El usuario no existe en el sistema. Por favor cree uno nuevo","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }catch(Exception e){
                 
