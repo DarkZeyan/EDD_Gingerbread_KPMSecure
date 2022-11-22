@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class LoginScreen extends javax.swing.JFrame {
+public class MainScreen extends javax.swing.JFrame {
 
    private KPMDataList<User> users;
     /**
      * Creates new form LoginScreen
      * @param users
      */
-    public LoginScreen(KPMDataList<User> users) {
+    public MainScreen(User user) {
         initComponents();
         setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
         this.users=users;

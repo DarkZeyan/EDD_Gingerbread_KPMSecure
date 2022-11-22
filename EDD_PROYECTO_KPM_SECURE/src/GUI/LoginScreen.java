@@ -46,10 +46,9 @@ public class LoginScreen extends javax.swing.JFrame {
                 }
             }catch(Exception e){
                 
-            }
-         
-            
+            }   
         }
+        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     @SuppressWarnings("unchecked")

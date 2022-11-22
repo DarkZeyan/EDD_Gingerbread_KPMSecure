@@ -4,6 +4,8 @@ import LocalFiles.User;
 import ManualCollections.KPMDataList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.regex.*;
+
 public class SignUpScreen extends javax.swing.JFrame {
 
       private KPMDataList<User> users;
@@ -18,6 +20,10 @@ public class SignUpScreen extends javax.swing.JFrame {
 
     private void CreateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserButtonActionPerformed
         if(!PasswordField.getText().equals("") && !UserField.getText().equals("") && !EmailField.equals("")){
+            
+            if(isEmailValid(EmailField.getText())){
+
+            
             if(PasswordField.getText().equals(VerifyPasswordField.getText())){
                 users.add(new User(UserField.getText(), EmailField.getText(), PasswordField.getText())); 
                 saveUsers(users);
@@ -25,6 +31,10 @@ public class SignUpScreen extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Error",JOptionPane.ERROR_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Introduzca una direccion de correo valida","Error",JOptionPane.ERROR_MESSAGE);
+        }
+            
         }else JOptionPane.showMessageDialog(null, "Uno de los campos está vacío","Error",JOptionPane.ERROR_MESSAGE);
 
     }//GEN-LAST:event_CreateUserButtonActionPerformed
@@ -51,6 +61,18 @@ public class SignUpScreen extends javax.swing.JFrame {
             UserField.setText("Ingresa tu usuario");
         }
     }//GEN-LAST:event_UserFieldKeyTyped
+
+    private boolean isEmailValid(String email){
+
+        String regexEmailValidation = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
+        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern emailPattern = Pattern.compile(regexEmailValidation);
+        Matcher validator = emailPattern.matcher(email);
+
+        return validator.matches();
+
+    }
 
     private void EmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailFieldKeyTyped
         if(EmailField.getText().equals("Ingresa tu email")){
