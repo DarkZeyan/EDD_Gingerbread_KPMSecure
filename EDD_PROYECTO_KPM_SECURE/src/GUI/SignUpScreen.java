@@ -2,6 +2,8 @@ package GUI;
 import static LocalFiles.Main.saveUsers;
 import LocalFiles.User;
 import ManualCollections.KPMDataList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
@@ -82,6 +84,12 @@ public class SignUpScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EmailFieldKeyTyped
 
+    
+   WindowListener exitOperationListener = new WindowAdapter(){
+            
+      };
+    
+    
     //Used Methods
 
 
@@ -103,7 +111,7 @@ public class SignUpScreen extends javax.swing.JFrame {
         ReturnHome = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("KPM Secure - Registro");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);

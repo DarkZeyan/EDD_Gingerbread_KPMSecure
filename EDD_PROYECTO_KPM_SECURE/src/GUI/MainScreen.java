@@ -23,15 +23,10 @@ public class MainScreen extends javax.swing.JFrame {
      * @param user
      */
     public MainScreen(User user) {
-        try{
             initComponents();
-            setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
+            setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());           
             this.user=user;
-        }catch(Exception ex){
-            
-        }finally{
-            saveUsers(users);
-        }
+            WelcomeLabel.setText("Bienvenido a KPM Secure "+user.getUsername());
     }
 
     // Used Methods
@@ -70,11 +65,11 @@ public class MainScreen extends javax.swing.JFrame {
         PasswordLabel = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         SignUpButton = new javax.swing.JButton();
-        SignUpLabel = new javax.swing.JLabel();
+        WelcomeLabel = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("KPM Secure - Inicio de sesión");
+        setTitle("KPM Secure - Pantalla principal");
         setBackground(new java.awt.Color(62, 63, 66));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(62, 63, 66));
@@ -122,8 +117,8 @@ public class MainScreen extends javax.swing.JFrame {
         });
         getContentPane().add(SignUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, -1, -1));
 
-        SignUpLabel.setText("¡Bienvenido a KPM Secure!"+);
-        getContentPane().add(SignUpLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 405, -1, -1));
+        WelcomeLabel.setText("Bienvenido a KPM Secure");
+        getContentPane().add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 290, -1));
 
         Background.setBackground(new java.awt.Color(62, 63, 66));
         Background.setForeground(new java.awt.Color(62, 63, 66));
@@ -193,7 +188,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JButton SignUpButton;
-    private javax.swing.JLabel SignUpLabel;
     private javax.swing.JLabel UserLabel;
+    private javax.swing.JLabel WelcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

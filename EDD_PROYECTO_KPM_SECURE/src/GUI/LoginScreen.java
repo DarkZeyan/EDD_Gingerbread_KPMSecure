@@ -46,9 +46,9 @@ public class LoginScreen extends javax.swing.JFrame {
                     
                      MainScreen ms = new MainScreen(user);
                      ms.setLocationRelativeTo(null);
-                     ms.setVisible(true);
-                     saveUsers(users);
-                     this.dispose();                     
+                     ms.setVisible(true);                     
+                     dispose();               
+                     break;
                  }else{
                     JOptionPane.showMessageDialog(null, "Contraseña incorrecta","Error",JOptionPane.ERROR_MESSAGE);
                  }
