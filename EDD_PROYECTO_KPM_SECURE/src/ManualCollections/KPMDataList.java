@@ -85,28 +85,31 @@ public class KPMDataList<Type> implements Serializable {
 
     public Object getValueAt(int pos) throws Exception {
         Node temp = start;
-
-        if (start == null) {
-            throw new Exception("No existen elementos en la lista, es imposible obtener el elemento");
+        if (pos == 0) {
+            return start.getValue();
         } else {
-            if (pos < 0) {
-                throw new Exception("No existen posiciones negativas en la lista");
-            } else if (pos > size()) { // Se quieren eliminar elementos en posiciones que no existen debido a que estan
-                                       // fuera del numero de elementos, no se pueden eliminar.
-                throw new Exception("No hay un elemento en la posicion asignada");
-            } else {
-                if (pos == 0) {
-                    return start.getValue();
-                } else {
-                    for (int i = 1; i < pos - 1; i++) {
-                        // Se obtiene cada elemento hasta llegar a la posicion deseada.
-                        temp = temp.getNext();
-                    }
-                    return temp.getValue();
-                }
+            for (int i = 1; i <= pos ; i++) {
+                temp = temp.getNext();
             }
+            return temp.getValue();
         }
     }
+
+    // public void printIn(int position) throws Exception{
+    //     if(position<0 || position>listSize){
+    //         throw new Exception("Fuera de los limites de la lista");
+    //     }
+    //     else{
+    //         Node temp = init;
+    //         for (int i = 0; i <= position; i++) {
+    //             if(i==position){
+    //                 System.out.println(temp.getValue());
+    //             }
+    //             temp = temp.getNext();
+    //         }
+    //     }
+    // }
+
 
     public void insertAt(int value, int pos) throws Exception {
         // Insertar en una posicion no valida

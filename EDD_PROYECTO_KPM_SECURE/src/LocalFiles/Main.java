@@ -48,7 +48,6 @@ public class Main {
 
     private static KPMDataList<User> getUsers() {
         KPMDataList<User> users = new KPMDataList();
-        //Bloque try-catch para encontrar los usuarios de tipo Estudiante. En caso de no existir, se mandará el ArrayList nuevo.
         try {
 
             FileInputStream openUsersFile = new FileInputStream("src/resources/data/users.kpmu");

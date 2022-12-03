@@ -10,56 +10,48 @@ import ManualCollections.KPMDataList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author user
- */
+
 public class LoginScreen extends javax.swing.JFrame {
 
-   private KPMDataList<User> users;
-    /**
-     * Creates new form LoginScreen
-     * @param users
-     */
+    private KPMDataList<User> users;
+
     public LoginScreen(KPMDataList<User> users) {
         initComponents();
         setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
-        this.users=users;
+        this.users = users;
     }
 
     // Used Methods
-    private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-         SignUpScreen signUpScreen = new SignUpScreen(users);
-         signUpScreen.setLocationRelativeTo(null);
-         signUpScreen.setVisible(true);
-         saveUsers(users);
-         dispose();
+    private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        SignUpScreen signUpScreen = new SignUpScreen(users);
+        signUpScreen.setLocationRelativeTo(null);
+        signUpScreen.setVisible(true);
+        saveUsers(users);
+        dispose();
     }
-    
-    
+
+
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        for(int i=0; i<users.size(); i++){
-            try{
-                User user = (User) users.getValueAt(i);
-                if(EmailField.getText().equals(user.getEmail()) && PasswordField.getText().equals(user.getPassword())){
-                 if(PasswordField.getText().equals(user.getPassword())){
-                    
-                     MainScreen ms = new MainScreen(user);
-                     ms.setLocationRelativeTo(null);
-                     ms.setVisible(true);                     
-                     dispose();               
-                     break;
-                 }else{
-                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta","Error",JOptionPane.ERROR_MESSAGE);
-                 }
-                }else{
-                    JOptionPane.showMessageDialog(null, "El usuario no existe en el sistema. Por favor cree uno nuevo","Error",JOptionPane.ERROR_MESSAGE);
+
+            for (int i = 0; i < users.size(); i++) {
+                try {
+                    User user = (User) users.getValueAt(i);
+                    System.out.println("usuario "+i+" "+user.getUsername()+" "+user.getEmail());
+                    if (EmailField.getText().equals(user.getEmail()) && PasswordField.getText().equals(user.getPassword())) {
+                            JOptionPane.showMessageDialog(null, "Sesion iniciada exitosamente", "Sesion iniciada con exito", JOptionPane.INFORMATION_MESSAGE);
+                            MainScreen ms = new MainScreen(user, users);
+                            ms.setLocationRelativeTo(null);
+                            ms.setVisible(true);
+                            dispose();
+
+                            break;
+                    }else if(i==users.size()-1){JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Datos erroneos", JOptionPane.ERROR_MESSAGE);}
+                } catch (Exception e) {
+
                 }
-            }catch(Exception e){
-                
-            }   
-        }
-        
+            }
+            
+         
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     @SuppressWarnings("unchecked")
@@ -136,9 +128,9 @@ public class LoginScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailFieldKeyTyped
-            if(EmailField.getText().equals("Ingresa tu email")){
+        if (EmailField.getText().equals("Ingresa tu email")) {
             EmailField.setText("");
-        }else if(EmailField.getText().equals("")){
+        } else if (EmailField.getText().equals("")) {
             EmailField.setText("Ingresa tu email");
         }
     }//GEN-LAST:event_EmailFieldKeyTyped
@@ -185,9 +177,7 @@ public class LoginScreen extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JTextField EmailField;

@@ -21,11 +21,13 @@ public class MainScreen extends javax.swing.JFrame {
     /**
      * Creates new form LoginScreen
      * @param user
+     * @param users
      */
-    public MainScreen(User user) {
+    public MainScreen(User user, KPMDataList<User> users) {
             initComponents();
             setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());           
             this.user=user;
+            this.users=users;
             WelcomeLabel.setText("Bienvenido a KPM Secure "+user.getUsername());
     }
 
@@ -44,7 +46,7 @@ public class MainScreen extends javax.swing.JFrame {
             try{
                 User user = (User) users.getValueAt(i);
                 if(EmailField.getText().equals(user.getEmail()) && PasswordField.getText().equals(user.getPassword())){
-                    JOptionPane.showMessageDialog(null, "Sesion iniciada exitosamente","Sesion iniciada con exito",JOptionPane.INFORMATION_MESSAGE);
+             
                 }
             }catch(Exception e){
                 

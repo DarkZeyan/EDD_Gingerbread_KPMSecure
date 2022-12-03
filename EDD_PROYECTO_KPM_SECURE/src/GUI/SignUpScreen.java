@@ -1,43 +1,50 @@
 package GUI;
+
 import static LocalFiles.Main.saveUsers;
 import LocalFiles.User;
 import ManualCollections.KPMDataList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
 
 public class SignUpScreen extends javax.swing.JFrame {
 
-      private KPMDataList<User> users;
-    
+    private KPMDataList<User> users;
+
     public SignUpScreen(KPMDataList<User> users) {
         initComponents();
         setIconImage(new ImageIcon("src/resources/KPMLogo_128.png").getImage());
-        this.users=users;
+        this.users = users;
     }
 
     //Used Methods
 
     private void CreateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserButtonActionPerformed
-        if(!PasswordField.getText().equals("") && !UserField.getText().equals("") && !EmailField.equals("")){
-            
-            if(isEmailValid(EmailField.getText())){
+        if (!PasswordField.getText().equals("") && !UserField.getText().equals("") && !EmailField.equals("")) {
 
-            
-            if(PasswordField.getText().equals(VerifyPasswordField.getText())){
-                users.add(new User(UserField.getText(), EmailField.getText(), PasswordField.getText())); 
-                saveUsers(users);
-                JOptionPane.showMessageDialog(null, "Usuario creado exitosamente","Usuado creado con exito",JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+            if (isEmailValid(EmailField.getText())) {
+                if(userExists(users,EmailField.getText())==false){
+                    if (PasswordField.getText().equals(VerifyPasswordField.getText())) {
+                        users.add(new User(UserField.getText(), EmailField.getText(), PasswordField.getText()));
+                        saveUsers(users);
+                        JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Usuado creado con exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+            }else {
+                      JOptionPane.showMessageDialog(null, "Ya existe un usuario con esa dirección de correo, favor de intentarlo con uno diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Introduzca una direccion de correo valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Introduzca una direccion de correo valida","Error",JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Uno de los campos está vacío", "Error", JOptionPane.ERROR_MESSAGE);
         }
-            
-        }else JOptionPane.showMessageDialog(null, "Uno de los campos está vacío","Error",JOptionPane.ERROR_MESSAGE);
 
     }//GEN-LAST:event_CreateUserButtonActionPerformed
 
@@ -50,24 +57,23 @@ public class SignUpScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnHomeActionPerformed
 
     private void UserFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UserFieldKeyTyped
-    //    int key = evt.getKeyChar();
-    //     boolean range = key >= 48 && key <=57;
-        
-    //     if(range){
-    //         evt.consume();
-    //     }
+        //    int key = evt.getKeyChar();
+        //     boolean range = key >= 48 && key <=57;
 
-        if(UserField.getText().equals("Ingresa tu usuario")){
+        //     if(range){
+        //         evt.consume();
+        //     }
+        if (UserField.getText().equals("Ingresa tu usuario")) {
             UserField.setText("");
-        }else if(UserField.getText().equals("")){
+        } else if (UserField.getText().equals("")) {
             UserField.setText("Ingresa tu usuario");
         }
     }//GEN-LAST:event_UserFieldKeyTyped
 
-    private boolean isEmailValid(String email){
+    private boolean isEmailValid(String email) {
 
-        String regexEmailValidation = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
-        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        String regexEmailValidation = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern emailPattern = Pattern.compile(regexEmailValidation);
         Matcher validator = emailPattern.matcher(email);
@@ -77,22 +83,36 @@ public class SignUpScreen extends javax.swing.JFrame {
     }
 
     private void EmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailFieldKeyTyped
-        if(EmailField.getText().equals("Ingresa tu email")){
+        if (EmailField.getText().equals("Ingresa tu email")) {
             EmailField.setText("");
-        }else if(EmailField.getText().equals("")){
+        } else if (EmailField.getText().equals("")) {
             EmailField.setText("Ingresa tu email");
         }
     }//GEN-LAST:event_EmailFieldKeyTyped
 
-    
-   WindowListener exitOperationListener = new WindowAdapter(){
-            
-      };
-    
-    
+    private boolean userExists(KPMDataList<User> users, String email){
+        
+        for(int i=0; i<users.size(); i++){
+         
+                User user;
+            try {
+                user = (User) users.getValueAt(i);
+                 if(user.getEmail().equalsIgnoreCase(email)) return true;
+            } catch (Exception ex) {
+                Logger.getLogger(SignUpScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+               
+                
+         }
+        
+        return false;
+    }
+
+    WindowListener exitOperationListener = new WindowAdapter() {
+
+    };
+
     //Used Methods
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,7 +131,7 @@ public class SignUpScreen extends javax.swing.JFrame {
         ReturnHome = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KPM Secure - Registro");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
