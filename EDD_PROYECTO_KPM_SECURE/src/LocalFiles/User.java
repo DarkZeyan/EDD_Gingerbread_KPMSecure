@@ -16,7 +16,7 @@ public class User implements Serializable{
         this.username = username;
         this.email = email;
         this.password = password;
-        this.accounts = null;
+        this.accounts = new KPMDataList<>();
     }
 
     public KPMDataList<Account> getAccounts() {

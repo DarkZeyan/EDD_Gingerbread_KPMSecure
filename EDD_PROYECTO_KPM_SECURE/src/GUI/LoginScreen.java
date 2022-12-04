@@ -43,7 +43,7 @@ public class LoginScreen extends javax.swing.JFrame {
                             ms.setLocationRelativeTo(null);
                             ms.setVisible(true);
                             dispose();
-
+                            
                             break;
                     }else if(i==users.size()-1){JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Datos erroneos", JOptionPane.ERROR_MESSAGE);}
                 } catch (Exception e) {
