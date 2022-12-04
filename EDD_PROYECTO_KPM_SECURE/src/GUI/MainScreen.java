@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
+import LocalFiles.Sorting.*;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -92,6 +92,7 @@ public class MainScreen extends javax.swing.JFrame {
         modificarBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        autogenerarBtn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,6 +181,14 @@ public class MainScreen extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 410, 310));
 
+        autogenerarBtn.setText("Autogenerar");
+        autogenerarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autogenerarBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(autogenerarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, -1, -1));
+
         Background.setBackground(new java.awt.Color(62, 63, 66));
         Background.setForeground(new java.awt.Color(62, 63, 66));
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 760));
@@ -219,15 +228,25 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaTextFieldActionPerformed
 
     private void añadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirBtnActionPerformed
-        Account cuenta = new Account(EmailField.getText(), usuarioTextField.getText(), contraseñaTextField.getText());
-        Vector v = new Vector();
-        v.add(EmailField.getText());
-        v.add(usuarioTextField.getText());
-        v.add(contraseñaTextField.getText());
+        if(!contraseñaTextField.getText().equals("")){
+            if(EmailField.getText().equals("")){
+                EmailField.setText("Sin especificar");
+            }
+            if(usuarioTextField.getText().equals("")){
+                usuarioTextField.setText("Sin especificar");
+            }
+
+            Account cuenta = new Account(EmailField.getText(), usuarioTextField.getText(), contraseñaTextField.getText());
+            Vector v = new Vector();
+            v.add(EmailField.getText());
+            v.add(usuarioTextField.getText());
+            v.add(contraseñaTextField.getText());
+            
+            cuentas.add(cuenta);
+            DefaultTableModel dt = (DefaultTableModel) Tabla.getModel();
+            dt.addRow(v);
+        }else JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña", "datos inválidos",JOptionPane.ERROR_MESSAGE);
         
-        cuentas.add(cuenta);
-        DefaultTableModel dt = (DefaultTableModel) Tabla.getModel();
-        dt.addRow(v);
     }//GEN-LAST:event_añadirBtnActionPerformed
 
     private void eliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarBtnActionPerformed
@@ -242,6 +261,28 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione la casilla a eliminar", "Campo inválido",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_eliminarBtnActionPerformed
+
+    private void autogenerarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autogenerarBtnActionPerformed
+                char[] mayus = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+                char[] minus = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+                char[] nums = { '1','2','3','4','5','6','7','8','9','0'};
+                char[] operators = {'&','!','@','$','?'};
+
+                StringBuilder chars = new StringBuilder();
+                chars.append(mayus);
+                chars.append(minus);
+                chars.append(nums);
+                chars.append(operators);
+
+                StringBuilder password = new StringBuilder();
+                for (int i = 0; i < 15; i++) {
+                    int charLength = chars.length();
+                    int randomNumber = (int) (Math.random()*charLength);
+
+                    password.append((chars.toString()).charAt(randomNumber));
+                }
+                contraseñaTextField.setText(password.toString());
+    }//GEN-LAST:event_autogenerarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,10 +334,12 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel UserLabel;
     private javax.swing.JLabel WelcomeLabel;
+    private javax.swing.JButton autogenerarBtn;
     private javax.swing.JButton añadirBtn;
     private javax.swing.JTextField contraseñaTextField;
     private javax.swing.JButton eliminarBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton modificarBtn;    private javax.swing.JTextField usuarioTextField;
+    private javax.swing.JButton modificarBtn;
+    private javax.swing.JTextField usuarioTextField;
     // End of variables declaration//GEN-END:variables
 }
