@@ -12,13 +12,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import LocalFiles.Sorting.*;
+import javax.swing.table.TableRowSorter;
 
+import LocalFiles.Sorting.*;
+import java.awt.event.ActionEvent;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 public class MainScreen extends javax.swing.JFrame {
 
    private KPMDataList<User> users;
@@ -39,17 +42,24 @@ public class MainScreen extends javax.swing.JFrame {
             WelcomeLabel.setText("Bienvenido a KPM Secure "+user.getUsername());
             cuentas=user.getAccounts();
             fillTable(cuentas);
+            setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
             WindowListener exitListener = new WindowAdapter() {
-
-    @Override
-        public void windowClosing(WindowEvent e) {
+        public void close(){
+                String opciones[] = {"Sí","No"};
+            
         int confirm = JOptionPane.showOptionDialog(null, "¿Desea cerrar la aplicacion?", 
              "Confirmacion de salida", JOptionPane.YES_NO_OPTION, 
-             JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/resources/KPMLogo_128.png"), null, null);
+             JOptionPane.QUESTION_MESSAGE, new ImageIcon("src/resources/KPMLogo_128.png"), opciones, opciones[0]);
+      
         if (confirm == 0) {
            saveUsers(users);
            System.exit(0);
         }
+        }
+    @Override
+       
+        public void windowClosing(WindowEvent e) {
+            close();
     }
 };
             addWindowListener(exitListener);
@@ -57,22 +67,36 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void fillTable(KPMDataList<Account> cuentas){
         if(cuentas!=null){
+        
             for(int i=0; i<cuentas.size(); i++){
                 try{
                     Account cuenta = (Account)cuentas.getValueAt(i);
                     Vector v = new Vector();
-                    v.add(cuenta.getEmail());
+                    v.add(cuenta.getPlatform());
                     v.add(cuenta.getAlias());
                     v.add(cuenta.getPassword());
                     DefaultTableModel dt = (DefaultTableModel) Tabla.getModel();
                     dt.addRow(v);
+                  if(i==cuentas.size()-1)  sortTable(cuentas);
                 }catch(Exception e){
 
                 }
              
             }
+            
         }
     }
+    
+
+    public static void sortTable(KPMDataList<Account> cuentas){
+        
+    }
+    // new Comparator(){
+    //     @Override
+    //     public int compare(Object o1, Object o2) {
+    //         return ((Account)o1).getPlatform().compareTo(((Account)o2).getPlatform());
+    //     }
+
 
 
     @SuppressWarnings("unchecked")
@@ -80,7 +104,7 @@ public class MainScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         KPMLogo = new javax.swing.JLabel();
-        EmailField = new javax.swing.JTextField();
+        platformField = new javax.swing.JTextField();
         UserLabel = new javax.swing.JLabel();
         PasswordLabel = new javax.swing.JLabel();
         WelcomeLabel = new javax.swing.JLabel();
@@ -106,21 +130,11 @@ public class MainScreen extends javax.swing.JFrame {
         KPMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/KPMLogo_128.png"))); // NOI18N
         getContentPane().add(KPMLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, -20, -1, 204));
 
-        EmailField.setToolTipText("");
-        EmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailFieldActionPerformed(evt);
-            }
-        });
-        EmailField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                EmailFieldKeyTyped(evt);
-            }
-        });
-        getContentPane().add(EmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 234, -1));
+        platformField.setToolTipText("");
+        getContentPane().add(platformField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 234, -1));
 
-        UserLabel.setText("Correo electronico");
-        getContentPane().add(UserLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
+        UserLabel.setText("Plataforma");
+        getContentPane().add(UserLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
 
         PasswordLabel.setText("Usuario");
         getContentPane().add(PasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, 20));
@@ -174,7 +188,7 @@ public class MainScreen extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Email", "Usuario", "Contraseña"
+                "Plataforma", "Usuario", "Contraseña"
             }
         ));
         jScrollPane1.setViewportView(Tabla);
@@ -196,20 +210,20 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailFieldKeyTyped
+    private void PlatformFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PlatformFieldKeyTyped
          
-    }//GEN-LAST:event_EmailFieldKeyTyped
+    }//GEN-LAST:event_PlatformFieldKeyTyped
 
-    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
+    private void PlatformFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlatformFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailFieldActionPerformed
+    }//GEN-LAST:event_PlatformFieldActionPerformed
 
     private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
         int fila = Tabla.getSelectedRow();
         if(fila>=0){
             try {
                 Account cuenta = (Account)cuentas.getValueAt(fila);
-                cuenta.setEmail(Tabla.getValueAt(fila, 0).toString());
+                cuenta.setPlatform(Tabla.getValueAt(fila, 0).toString());
                 cuenta.setAlias(Tabla.getValueAt(fila, 1).toString());
                 cuenta.setPassword(Tabla.getValueAt(fila, 2).toString());
                 JOptionPane.showMessageDialog(null, "Datos modificados correctamente", "Tarea exitosa", JOptionPane.INFORMATION_MESSAGE);
@@ -229,22 +243,28 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void añadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirBtnActionPerformed
         if(!contraseñaTextField.getText().equals("")){
-            if(EmailField.getText().equals("")){
-                EmailField.setText("Sin especificar");
+            if(platformField.getText().equals("")){
+                platformField.setText("Sin especificar");
             }
             if(usuarioTextField.getText().equals("")){
                 usuarioTextField.setText("Sin especificar");
             }
 
-            Account cuenta = new Account(EmailField.getText(), usuarioTextField.getText(), contraseñaTextField.getText());
+            Account cuenta = new Account(platformField.getText(), usuarioTextField.getText(), contraseñaTextField.getText());
             Vector v = new Vector();
-            v.add(EmailField.getText());
+            v.add(platformField.getText());
             v.add(usuarioTextField.getText());
             v.add(contraseñaTextField.getText());
             
             cuentas.add(cuenta);
             DefaultTableModel dt = (DefaultTableModel) Tabla.getModel();
             dt.addRow(v);
+            TableRowSorter<DefaultTableModel> sort = new TableRowSorter<>(dt);
+            Tabla.setRowSorter(sort);
+
+            usuarioTextField.setText("");
+            platformField.setText("");
+            contraseñaTextField.setText("");
         }else JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña", "datos inválidos",JOptionPane.ERROR_MESSAGE);
         
     }//GEN-LAST:event_añadirBtnActionPerformed
@@ -328,7 +348,6 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JLabel Contraseña;
-    private javax.swing.JTextField EmailField;
     private javax.swing.JLabel KPMLogo;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JTable Tabla;
@@ -340,6 +359,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton eliminarBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton modificarBtn;
+    private javax.swing.JTextField platformField;
     private javax.swing.JTextField usuarioTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,22 +3,22 @@ package LocalFiles;
 import java.io.Serializable;
 
 public class Account implements Serializable{
-    private String email;
+    private String platform;
     private String alias;
     private String password;
 
-    public Account(String email, String alias, String password){
-        this.email = email;
+    public Account(String platform, String alias, String password){
+        this.platform = platform;
         this.alias = alias;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public String getPassword() {

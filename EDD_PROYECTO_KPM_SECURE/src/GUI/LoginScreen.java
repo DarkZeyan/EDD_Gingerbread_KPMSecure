@@ -36,7 +36,7 @@ public class LoginScreen extends javax.swing.JFrame {
             for (int i = 0; i < users.size(); i++) {
                 try {
                     User user = (User) users.getValueAt(i);
-                    System.out.println("usuario "+i+" "+user.getUsername()+" "+user.getEmail());
+             
                     if (EmailField.getText().equals(user.getEmail()) && PasswordField.getText().equals(user.getPassword())) {
                             JOptionPane.showMessageDialog(null, "Sesion iniciada exitosamente", "Sesion iniciada con exito", JOptionPane.INFORMATION_MESSAGE);
                             MainScreen ms = new MainScreen(user, users);

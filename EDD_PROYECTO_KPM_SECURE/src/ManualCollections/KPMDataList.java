@@ -95,21 +95,6 @@ public class KPMDataList<Type> implements Serializable {
         }
     }
 
-    // public void printIn(int position) throws Exception{
-    //     if(position<0 || position>listSize){
-    //         throw new Exception("Fuera de los limites de la lista");
-    //     }
-    //     else{
-    //         Node temp = init;
-    //         for (int i = 0; i <= position; i++) {
-    //             if(i==position){
-    //                 System.out.println(temp.getValue());
-    //             }
-    //             temp = temp.getNext();
-    //         }
-    //     }
-    // }
-
 
     public void insertAt(int value, int pos) throws Exception {
         // Insertar en una posicion no valida

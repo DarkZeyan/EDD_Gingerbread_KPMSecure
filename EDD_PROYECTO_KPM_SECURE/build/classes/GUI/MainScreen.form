@@ -48,14 +48,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JTextField" name="EmailField">
+    <Component class="javax.swing.JTextField" name="platformField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmailFieldActionPerformed"/>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="EmailFieldKeyTyped"/>
-      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="310" y="210" width="234" height="-1"/>
@@ -64,11 +60,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="UserLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Correo electronico"/>
+        <Property name="text" type="java.lang.String" value="Plataforma"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="380" y="190" width="-1" height="-1"/>
+          <AbsoluteConstraints x="400" y="190" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -177,7 +173,7 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="0">
-                <Column editable="true" title="Email" type="java.lang.Object"/>
+                <Column editable="true" title="Plataforma" type="java.lang.Object"/>
                 <Column editable="true" title="Usuario" type="java.lang.Object"/>
                 <Column editable="true" title="Contrase&#xf1;a" type="java.lang.Object"/>
               </Table>
